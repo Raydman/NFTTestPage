@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import './styles.scss';
 import fon from "./logo100.png"
 import { Checkbox } from 'antd';
@@ -66,6 +65,13 @@ tx_status: string;
 type: string;
 updated_at: string;
 }
+interface IProduct {
+  products: IData;
+  creators: any;
+}
+interface IData {
+  data: IProduct;
+}
 
 function App() {
   const [items, setItems] = useState<IItems[]>([]);
@@ -73,9 +79,9 @@ function App() {
 
   useEffect(() => {
     fetch("https://artisant.io/api/products")
-      .then(res => res.json())
+      .then((res: any) => res.json())
       .then(
-        (result) => {
+        (result: any) => {
           setItems(result.data.products);
         },
       )
@@ -88,16 +94,17 @@ function App() {
       setChecked({ checked: !checked.checked })
     } else {
       fetch("https://artisant.io/api/products")
-        .then(res => res.json())
+        .then((res: any) => res.json())
         .then(
-          (result) => {
+          (result: any) => {
             setItems(result.data.products);
             setChecked({ checked: !checked.checked })
           },
         )
     }
   }
-
+  console.log(items);
+  
   return (
     <div className="App">
       <div className='artisant-board'>
